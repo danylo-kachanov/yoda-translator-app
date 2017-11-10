@@ -72,7 +72,8 @@
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\StringToBooleanConverter.cs" />
-    <Compile Include="Services\Interfaces\IYodaTranslatorService.cs" />
+    <Compile Include="Services\Models\IYodaTranslatorService.cs" />
+    <Compile Include="Services\Models\ResponseData.cs" />
     <Compile Include="Services\YodaTranslatorService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -116,6 +117,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Properties\loading_icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

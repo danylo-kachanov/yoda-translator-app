@@ -120,11 +120,19 @@
   <data name="EnterTextHereLabel" xml:space="preserve">
     <value>Enter your text to translate in form below:</value>
   </data>
+  <data name="InternetConnectionError" xml:space="preserve">
+    <value>Please, check your internet connection and retry.</value>
+  </data>
   <data name="LoadingLabelText" xml:space="preserve">
     <value>One second please. We contact Yoda for translating your text.</value>
   </data>
-  <data name="MainWindowTitle" xml:space="preserve">
+  <data name="MainTitle" xml:space="preserve">
     <value>Yoda Translator</value>
+  </data>
+  <data name="RequestError" xml:space="preserve">
+    <value>Oops! We have some problem with connection to Yoda service. 
+Error text: 
+{0}</value>
   </data>
   <data name="TranslateButtonContent" xml:space="preserve">
     <value>Translate</value>

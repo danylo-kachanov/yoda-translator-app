@@ -70,6 +70,15 @@ namespace YodaTranslatorApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please, check your internet connection and retry..
+        /// </summary>
+        public static string InternetConnectionError {
+            get {
+                return ResourceManager.GetString("InternetConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to One second please. We contact Yoda for translating your text..
         /// </summary>
         public static string LoadingLabelText {
@@ -81,9 +90,20 @@ namespace YodaTranslatorApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Yoda Translator.
         /// </summary>
-        public static string MainWindowTitle {
+        public static string MainTitle {
             get {
-                return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+                return ResourceManager.GetString("MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oops! We have some problem with connection to Yoda service. 
+        ///Error text: 
+        ///{0}.
+        /// </summary>
+        public static string RequestError {
+            get {
+                return ResourceManager.GetString("RequestError", resourceCulture);
             }
         }
         

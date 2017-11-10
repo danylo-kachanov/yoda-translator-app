@@ -5,17 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:YodaTranslatorApp.ViewModel"
         xmlns:p="clr-namespace:YodaTranslatorApp.Properties"
-		xmlns:command="http://www.galasoft.ch/mvvmlight"
-		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-		Title="{x:Static p:Resources.MainWindowTitle}"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:datatriggers="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        Title="{x:Static p:Resources.MainTitle}"
         Background="LightYellow"
         mc:Ignorable="d"
-        Height="500" 
-        Width="725">
+        MinHeight="500" 
+        MinWidth="725">
 
     <Window.DataContext>
         <viewModels:MainViewModel x:Name="MainViewModel"/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <Storyboard x:Key="LoadingRotateAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle" 
+                             By="0"        
+                             To="360"
+                             Duration="0:0:1.5"
+                             RepeatBehavior="Forever"/>
+        </Storyboard>
+        <Style x:Key="LoadingImageStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsTranslatingNow}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard x:Name="BeginRotateStoryboard" 
+                                         Storyboard="{StaticResource LoadingRotateAnimation}"/>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <RemoveStoryboard BeginStoryboardName="BeginRotateStoryboard" />
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -32,7 +57,7 @@
                    FontSize="18"/>
 		
         <TextBox x:Name="TextBoxToTranslate"
-					Grid.Row="1"
+                 Grid.Row="1"
                  Margin="10"
                  FontSize="18"/>
 
@@ -42,27 +67,48 @@
                 Margin="10"
                 Width="150"
                 Height="80"
-				IsEnabled="{Binding ElementName=TextBoxToTranslate, Path=Text, Converter={StaticResource StringToBooleanConverter}}"
+                IsEnabled="{Binding ElementName=TextBoxToTranslate, Path=Text, Converter={StaticResource StringToBooleanConverter}}"
                 FontSize="18">
-			<i:Interaction.Triggers>
-				<i:EventTrigger EventName="Click">
-					<command:EventToCommand  Command="{Binding TranslateTextCommand}" CommandParameter="{Binding ElementName=TextBoxToTranslate, Path=Text}"/>
-				</i:EventTrigger>
-			</i:Interaction.Triggers>
-		</Button>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <command:EventToCommand  Command="{Binding TranslateTextCommand}" CommandParameter="{Binding ElementName=TextBoxToTranslate, Path=Text}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
 
-        <TextBlock Grid.Row="3"
-                   FontSize="18"
-                   Margin="5"
-                   Foreground="DarkGray"
-                   TextAlignment="Center"
-                   Text="{x:Static p:Resources.LoadingLabelText}"
-				   Visibility="{Binding IsTranslatingNow, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Grid Grid.Row="3"
+              Visibility="{Binding IsTranslatingNow, Converter={StaticResource BooleanToVisibilityConverter}}"
+              HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Image Source="..\Properties\loading_icon.png"
+                   Grid.Row="0"
+                   Width="50"
+                   Style="{StaticResource LoadingImageStyle}"
+                   RenderTransformOrigin="0.5,0.5"
+                   HorizontalAlignment="Center"
+                   Stretch="Uniform">
+                <Image.RenderTransform>
+                    <RotateTransform Angle="0" />
+                </Image.RenderTransform>
+            </Image>
+
+            <TextBlock Grid.Row="1"
+                       FontSize="16"
+                       Margin="5"
+                       Foreground="DarkGray"
+                       TextAlignment="Center"
+                       Text="{x:Static p:Resources.LoadingLabelText}"/>
+
+        </Grid>
 
         <TextBox Grid.Row="4"
-				 IsReadOnly="True"
+                 IsReadOnly="True"
                  Margin="10"
-				 Text="{Binding TranslatedText, Mode=TwoWay}"
+                 Text="{Binding TranslatedText, Mode=TwoWay}"
                  FontSize="18"/>
 		
     </Grid>

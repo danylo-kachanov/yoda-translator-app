@@ -9,7 +9,7 @@
 			 xmlns:converters="clr-namespace:YodaTranslatorApp.Helpers.Converters">
   <Application.Resources>
     <ResourceDictionary>
-      <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:YodaTranslatorApp.ViewModel" />
+			<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:YodaTranslatorApp.ViewModel" />
 			<converters:StringToBooleanConverter x:Key="StringToBooleanConverter"/>
 			<converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 		</ResourceDictionary>

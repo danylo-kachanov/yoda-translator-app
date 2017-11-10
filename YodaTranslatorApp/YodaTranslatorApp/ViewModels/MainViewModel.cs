@@ -1,6 +1,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using System.Windows;
+using YodaTranslatorApp.Properties;
 using YodaTranslatorApp.Services;
 
 namespace YodaTranslatorApp.ViewModel
@@ -10,8 +12,6 @@ namespace YodaTranslatorApp.ViewModel
         private IYodaTranslatorService _translatorService;
         private string _translatedText;
         private bool _isTranslatingNow;
-
-        public RelayCommand<string> TranslateTextCommand { get; private set; }
 
         public string TranslatedText
         {
@@ -39,6 +39,8 @@ namespace YodaTranslatorApp.ViewModel
             }
         }
 
+        public RelayCommand<string> TranslateTextCommand { get; private set; }
+
         public MainViewModel()
         {
             this.TranslateTextCommand = new RelayCommand<string>(this.TranslateTextCommandExecute);
@@ -47,11 +49,23 @@ namespace YodaTranslatorApp.ViewModel
 
         private async void TranslateTextCommandExecute(string text)
         {
-            if (this._translatorService != null)
+            if (this._translatorService != null && !this.IsTranslatingNow)
             {
                 this.IsTranslatingNow = true;
-                this.TranslatedText = await _translatorService.TranslateText(text);
+
+                var responseData = await this._translatorService.TranslateText(text);
+
                 this.IsTranslatingNow = false;
+
+                if (responseData.IsSuccessful)
+                {
+                    this.TranslatedText = responseData.Data;
+                }
+                else
+                {
+                    var errorText = string.Format(Resources.RequestError,responseData.ErrorMessage);
+                    MessageBox.Show(errorText, Resources.MainTitle);
+                }
             }
         }
     }

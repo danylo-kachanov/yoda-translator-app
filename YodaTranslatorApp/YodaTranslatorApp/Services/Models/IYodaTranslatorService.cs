@@ -4,6 +4,6 @@ namespace YodaTranslatorApp.Services
 { 
     public interface IYodaTranslatorService
     {
-        Task<string> TranslateText(string originalText);
+        Task<ResponseData<string>> TranslateText(string originalText);
     }
 }
