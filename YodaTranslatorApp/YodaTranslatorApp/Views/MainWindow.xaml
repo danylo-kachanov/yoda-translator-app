@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:YodaTranslatorApp"
         xmlns:viewModels="clr-namespace:YodaTranslatorApp.ViewModel"
         xmlns:p="clr-namespace:YodaTranslatorApp.Properties"
 		xmlns:command="http://www.galasoft.ch/mvvmlight"
@@ -47,7 +46,7 @@
                 FontSize="18">
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName="Click">
-					<command:EventToCommand  Command="" CommandParameter=""/>
+					<command:EventToCommand  Command="{Binding TranslateTextCommand}" CommandParameter="{Binding ElementName=TextBoxToTranslate, Path=Text}"/>
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 		</Button>
@@ -58,10 +57,12 @@
                    Foreground="DarkGray"
                    TextAlignment="Center"
                    Text="{x:Static p:Resources.LoadingLabelText}"
-				   Visibility="Visible"/>
+				   Visibility="{Binding IsTranslatingNow, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
         <TextBox Grid.Row="4"
+				 IsReadOnly="True"
                  Margin="10"
+				 Text="{Binding TranslatedText, Mode=TwoWay}"
                  FontSize="18"/>
 		
     </Grid>

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace YodaTranslatorApp.Converters
+namespace YodaTranslatorApp.Helpers.Converters
 {
     public class StringToBooleanConverter : IValueConverter
     {
