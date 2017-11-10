@@ -4,9 +4,65 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YodaTranslatorApp"
+        xmlns:viewModels="clr-namespace:YodaTranslatorApp.ViewModel"
+        xmlns:p="clr-namespace:YodaTranslatorApp.Properties"
+		xmlns:command="http://www.galasoft.ch/mvvmlight"
+		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+		Title="{x:Static p:Resources.MainWindowTitle}"
+        Background="LightYellow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Height="500" 
+        Width="725">
+
+    <Window.DataContext>
+        <viewModels:MainViewModel x:Name="MainViewModel"/>
+    </Window.DataContext>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="{x:Static p:Resources.EnterTextHereLabel}"
+                   Margin="10,15"
+                   FontSize="18"/>
+		
+        <TextBox x:Name="TextBoxToTranslate"
+					Grid.Row="1"
+                 Margin="10"
+                 FontSize="18"/>
+
+        <Button Grid.Row="2"
+                Content="{x:Static p:Resources.TranslateButtonContent}"
+                VerticalAlignment="Bottom"
+                Margin="10"
+                Width="150"
+                Height="80"
+				IsEnabled="{Binding ElementName=TextBoxToTranslate, Path=Text, Converter={StaticResource StringToBooleanConverter}}"
+                FontSize="18">
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="Click">
+					<command:EventToCommand  Command="" CommandParameter=""/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</Button>
+
+        <TextBlock Grid.Row="3"
+                   FontSize="18"
+                   Margin="5"
+                   Foreground="DarkGray"
+                   TextAlignment="Center"
+                   Text="{x:Static p:Resources.LoadingLabelText}"
+				   Visibility="Visible"/>
+
+        <TextBox Grid.Row="4"
+                 Margin="10"
+                 FontSize="18"/>
+		
     </Grid>
 </Window>
