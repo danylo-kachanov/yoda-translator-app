@@ -125,11 +125,5 @@
   <ItemGroup>
     <Resource Include="Properties\loading_icon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\YodaTranslatorApp.Tests\YodaTranslatorApp.Tests.csproj">
-      <Project>{ea0476e2-f7a4-4ddc-ba07-55b354fd24a9}</Project>
-      <Name>YodaTranslatorApp.Tests</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

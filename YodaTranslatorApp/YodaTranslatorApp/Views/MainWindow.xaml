@@ -56,22 +56,24 @@
                    Margin="10,15"
                    FontSize="18"/>
 		
-        <TextBox x:Name="TextBoxToTranslate"
+        <TextBox x:Name="TextBoxWithOriginalText"
+				 AutomationProperties.AutomationId="TextBoxWithOriginalTextId"
                  Grid.Row="1"
                  Margin="10"
                  FontSize="18"/>
 
         <Button Grid.Row="2"
+				AutomationProperties.AutomationId="TranslateButtonId"
                 Content="{x:Static p:Resources.TranslateButtonContent}"
                 VerticalAlignment="Bottom"
                 Margin="10"
                 Width="150"
                 Height="80"
-                IsEnabled="{Binding ElementName=TextBoxToTranslate, Path=Text, Converter={StaticResource StringToBooleanConverter}}"
+                IsEnabled="{Binding ElementName=TextBoxWithOriginalText, Path=Text, Converter={StaticResource StringToBooleanConverter}}"
                 FontSize="18">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
-                    <command:EventToCommand  Command="{Binding TranslateTextCommand}" CommandParameter="{Binding ElementName=TextBoxToTranslate, Path=Text}"/>
+					<command:EventToCommand  Command="{Binding TranslateTextCommand}" CommandParameter="{Binding ElementName=TextBoxWithOriginalText, Path=Text}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Button>
@@ -106,6 +108,7 @@
         </Grid>
 
         <TextBox Grid.Row="4"
+				 AutomationProperties.AutomationId="TextBoxWithTranslatedTextId"
                  IsReadOnly="True"
                  Margin="10"
                  Text="{Binding TranslatedText, Mode=TwoWay}"
