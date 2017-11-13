@@ -51,6 +51,8 @@ namespace YodaTranslatorApp.ViewModel
         {
             if (this._translatorService != null && !this.IsTranslatingNow)
             {
+                this.TranslatedText = string.Empty;
+
                 this.IsTranslatingNow = true;
 
                 var responseData = await this._translatorService.TranslateText(text);
