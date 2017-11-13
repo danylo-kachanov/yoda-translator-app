@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using YodaTranslatorApp.Helpers;
 using YodaTranslatorApp.Properties;
@@ -19,7 +20,7 @@ namespace YodaTranslatorApp.Services
             {
                 var requestUrl = string.Format(Constants.YodaTranslateRequestPattern, Constants.YodaTranslationServiceMainUrl, Uri.EscapeDataString(originalText));
 
-                if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+                if (InternetAvailability.IsInternetAvailable())
                 {
                     var request = (HttpWebRequest)WebRequest.Create(requestUrl);
                     request.Method = Constants.GetRequestMethod;
@@ -50,6 +51,18 @@ namespace YodaTranslatorApp.Services
                 }
             });
             return responseData;
+        }
+
+        private class InternetAvailability
+        {
+            [DllImport("wininet.dll")]
+            private extern static bool InternetGetConnectedState(out int description, int reservedValue);
+
+            public static bool IsInternetAvailable()
+            {
+                int description;
+                return InternetGetConnectedState(out description, 0);
+            }
         }
     }
 }
