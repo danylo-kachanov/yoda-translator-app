@@ -6,5 +6,5 @@ Manual for run UI tests:
 1. Open solution in VS.
 2. Build solution.
 3. Run UI test via VS menu
-  3.1. Test->Run->All Tests (for run all available test)
-  3.2. Test->Windows->Test Explorer, then select necessary test and run its
+  - Test->Run->All Tests (for run all available test)
+  - Test->Windows->Test Explorer, then select necessary test and run its
